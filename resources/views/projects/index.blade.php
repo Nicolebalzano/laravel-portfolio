@@ -17,6 +17,7 @@
          <td>{{$project->cliente}}</td>
           <td>{{$project->periodo}}</td>
            <td>{{$project->riassunto}}</td>
+           <td><a href="{{route ('projects.show', $project->id)}}">Scopri di più</a></td>
     </tr>
     @endforeach
 </tbody>
