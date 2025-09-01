@@ -1,6 +1,9 @@
 @extends('layouts.projects')
 @section('nome', 'tutti i post')
 @section('contenuto')
+<div class="d-flex gap-2">
+    <a href="{{route('projects.create')}}" class='btn btn-primary'>Aggiungi un post</a>
+</div>
 <table>
     <thead>
         <tr>
