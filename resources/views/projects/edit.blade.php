@@ -19,6 +19,15 @@
         <input type="text" name='periodo' id='periodo' value='{{$project->periodo}}'>
         
     </div>
+     <div class="form-control mb-3 d-flex flex-wrap">
+      @foreach($technologies as $technology)
+      <div class="tag me-3">
+            <input type="checkbox" name='technologies[]' value='{{$technology->id}}' id='technology-{{$technology->id}}' {{ $project->technologies->contains($technology->id) ? 'checked' : ''}}>
+      <label for="technology-{{$technology->id}}">{{$technology->name}}</label>
+      </div>
+  
+      @endforeach
+    </div>
       <div class="form-control mb-3 d-flex flex-column">
          <label for="riassunto">Riassunto</label>
        <textarea name="riassunto" id="riassunto">{{$project->riassunto}}</textarea>

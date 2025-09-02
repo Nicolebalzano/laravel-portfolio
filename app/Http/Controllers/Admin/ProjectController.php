@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Technology;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -21,7 +22,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('projects.create');
+        $technologies = Technology::all();
+        return view('projects.create', compact('technologies'));
     }
 
     /**
@@ -36,6 +38,10 @@ class ProjectController extends Controller
         $newProject->priodo = $data['periodo'];
         $newProject->riassunto = $data['riassunto'];
         $newProject->save();
+        if($request->has('technologies')){
+              $newProject->technologies()->attach($data['technologies']);
+        }
+      
         return redirect()->route('projects.show', $newProject->id);
     }
 
@@ -55,7 +61,9 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         //$post = Post::find(id);
-    return view('projects.edit', compact('project') );
+        $technologies = Technology::all();
+    return view('projects.edit', compact('project', 'technologies') );
+
     }
 
     /**
@@ -69,6 +77,13 @@ class ProjectController extends Controller
          $project->periodo = $data['periodo'];
           $project->riassunto = $data['riassunto'];
           $project->update();
+          if($request->has('technologies')){
+             $project->technologies()->sync($data['technologies']);
+          }else{
+            $project->technologies()->detach();
+          }
+         
+
           return redirect()->route('projects.show', $project->id);
     }
 

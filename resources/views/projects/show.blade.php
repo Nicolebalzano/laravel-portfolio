@@ -12,6 +12,13 @@
     Cliente -> {{$project ->cliente}}
     </h5>
     <h6>periodo:  - {{$project ->periodo}}</h6>
+    <small>technologies: 
+      @forelse($project ->technologies as $technology)
+      <span class="badge" style='background-color:{{$technology->color}}'>{{$technology->name}}</span>
+      @empty
+      Nessuno
+      @endforelse
+    </small>
     <p> {{$project ->riassunto}}</p>
 </h2>
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -26,7 +33,6 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <!-- <button type="button" class="btn btn-danger">Elimina definitivamente</button> -->
            <form action="{{route('projects.destroy', $project)}}" method='POST'>
         @csrf
         @method('DELETE')
