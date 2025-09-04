@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-      
-        Schema::create('project_technology', function (Blueprint $table) {
-            $table->id();
-              $table->foreignId('project_id')->constrained();
-                $table->foreignId('technology_id')->constrained();
-            $table->timestamps();
-        });
+       
+          if (!Schema::hasColumn('types', 'description')) {
+    Schema::table('types', function (Blueprint $table) {
+        $table->text('description')->nullable();
+    });
+}
     }
 
     /**
@@ -25,6 +24,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('project_technology');
+        Schema::table('types', function (Blueprint $table) {
+            //
+        });
     }
 };

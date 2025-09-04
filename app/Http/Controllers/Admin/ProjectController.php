@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Type;
 use App\Models\Technology;
 use Illuminate\Http\Request;
 
@@ -22,8 +23,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
+        $types = Type::all();
         $technologies = Technology::all();
-        return view('projects.create', compact('technologies'));
+        return view('projects.create', compact('types','technologies'));
     }
 
     /**
@@ -35,7 +37,8 @@ class ProjectController extends Controller
       $newProject = new Project();
      $newProject->nome = $data['nome'];
      $newProject->cliente = $data['cliente'];
-        $newProject->priodo = $data['periodo'];
+     $newProject->type_id = $data['type_id'];
+        $newProject->periodo = $data['periodo'];
         $newProject->riassunto = $data['riassunto'];
         $newProject->save();
         if($request->has('technologies')){
@@ -61,8 +64,9 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         //$post = Post::find(id);
+            $types = Type::all();
         $technologies = Technology::all();
-    return view('projects.edit', compact('project', 'technologies') );
+    return view('projects.edit', compact('project','types', 'technologies') );
 
     }
 
@@ -75,6 +79,7 @@ class ProjectController extends Controller
        $project->nome = $data['nome'];
         $project->cliente = $data['cliente'];
          $project->periodo = $data['periodo'];
+           $project->type_id = $data['type_id'];
           $project->riassunto = $data['riassunto'];
           $project->update();
           if($request->has('technologies')){

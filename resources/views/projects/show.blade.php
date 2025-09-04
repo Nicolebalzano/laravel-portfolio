@@ -18,6 +18,9 @@
       @empty
       Nessuno
       @endforelse
+    </small> <br>
+    <small>
+      Type: {{$project->type->name}}
     </small>
     <p> {{$project ->riassunto}}</p>
 </h2>
